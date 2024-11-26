@@ -1,0 +1,27 @@
+<div class="ss">
+    <div class="form-container">
+      <h2>Enter Name (Template driven)</h2>
+      <form #myform="ngForm">
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" [(ngModel)]="username" name="username"  placeholder="Enter your username" required #user="ngModel">
+          @if(user.invalid && user.touched){
+            <div class="error-message" style="color: brown;">Please enter username</div>
+          }
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="text" [(ngModel)]="password" name="password" placeholder="Enter your password" required #pass="ngModel">
+          @if(pass.invalid && pass.touched){
+            <div class="error-message" style="color: brown;">Please enter Password</div>
+          }
+        </div>
+        <div class="form-group">
+          <button [disabled]=" pass.invalid && user.invalid" type="submit" (click)="onSubmitng()" [ngClass]="{'btn-css': pass.invalid || user.invalid}">Submit</button>
+        </div>
+      </form>
+      <div>
+        New User? <a routerLink="/registration">Register here</a>
+      </div>
+    </div>
+  </div>
