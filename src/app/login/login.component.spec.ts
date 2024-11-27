@@ -1,23 +1,23 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
-import { TemplateFormsComponent } from './template-forms.component';
+import { LoginComponent } from './login.component';
 import { FormsModule } from '@angular/forms';
 import { platformBrowser } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
 
 
-describe('TemplateFormsComponent', () => {
-  let component: TemplateFormsComponent;
-  let fixture: ComponentFixture<TemplateFormsComponent>;
+describe('LoginComponent', () => {
+  let component: LoginComponent;
+  let fixture: ComponentFixture<LoginComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TemplateFormsComponent, FormsModule],
+      imports: [LoginComponent, FormsModule],
       providers: [provideRouter([])]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TemplateFormsComponent);
+    fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, Validators, FormControl, FormGroup} from '@angular/forms'
 import { SharedModule } from '../Shared/shared.module';
-import { ApiServiceService } from '../api-service.service';
 import { RouterModule } from '@angular/router';
+import { ApiService } from '../api.service';
+import { provideToastr, ToastrService } from 'ngx-toastr';
+
 @Component({
-  selector: 'app-forms',
+  selector: 'app-registration',
   imports: [SharedModule],
   standalone: true,
-  templateUrl: './forms.component.html',
-  styleUrl: './forms.component.css'
+  templateUrl: './registration.component.html',
+  styleUrl: './registration.component.css'
 })
-export class FormsComponent implements OnInit {
-  var:String = "https://www.google.com"
+export class registrationComponent implements OnInit {
   form = new FormGroup({
     firstname: new FormControl('', Validators.required),
     lastname: new FormControl('', Validators.required),
@@ -20,28 +21,24 @@ export class FormsComponent implements OnInit {
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     confirmpassword: new FormControl('', [Validators.required, this.passwordMatchValidator.bind(this)])
   });
-  fname:any;
-  username:String = '';
-  password:String = '';
-  constructor(private formbuilder: FormBuilder, private api:ApiServiceService){
+
+  constructor(private formbuilder: FormBuilder, private api:ApiService, private toastr: ToastrService){
 
   }
-
+  routeData: any;
   ngOnInit(): void {
-    // this.form = this.formbuilder.group({
-    //   username: ['', Validators.required],
-    //   password : ['', Validators.required],
-    // })
-    // this.fname = this.formControl.value('')
+      this.routeData = this.api.getData()
+      console.log(this.routeData);
+      if(this.routeData.username != '' && this.routeData.password!=''){
+        this.form.controls.username.setValue(this.routeData.username)
+        this.form.controls.password.setValue(this.routeData.password)
+        this.toastr.show("Please register as new user","Message", {positionClass: "toast-top-right"})
+      }
+
   }
   onSubmit(){
     console.log(this.form.value)
     window.alert("Form submitted")
-    this.api.complexCal(7);
-  }
-  onSubmitng(){
-    console.log(this.username, this.password)
-    console.log()
   }
 
   passwordMatchValidator(control: FormControl): {[key:string]: boolean} | null{

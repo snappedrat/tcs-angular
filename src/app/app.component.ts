@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { FormsComponent } from './forms/forms.component';
+import { registrationComponent } from './registration/registration.component';
 
 @Component({
   selector: 'app-root',

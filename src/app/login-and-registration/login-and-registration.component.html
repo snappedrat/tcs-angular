@@ -1,0 +1,78 @@
+<app-login *ngIf="flag" [flag]="true" (register)="submit($event)" ></app-login>
+
+
+  <div *ngIf="!flag" class="ss">
+    <div class="form-container">
+      <h2>Registration page (Reactive Forms)</h2>
+      <form [formGroup]="form">
+        <div class="form-group">
+          <label>Firstname</label>
+          <input type="text" id="firstname" formControlName="firstname" placeholder="Enter your firstname">
+          @if(form.get('firstname')?.touched && form.get('firstname')?.invalid){
+            <div style="color: brown;">Please enter firstname</div>
+          }
+        </div>
+        <div class="form-group">
+          <label>Lastname</label>
+          <input type="text" id="lastname" formControlName="lastname" placeholder="Enter your Lastname">
+          @if(form.get('lastname')?.touched && form.get('lastname')?.invalid){
+            <div style="color: brown;">Please enter lastname</div>
+          }
+        </div>
+        <div class="form-group">
+          <label>email</label>
+          <input type="text" id="email" formControlName="email" placeholder="Enter your email">
+          @if(form.get('email')?.touched && form.get('email')?.invalid){
+            @if(form.get('email')?.errors?.['required']){
+              <div style="color: brown;">Email is required</div>
+            }
+            @if(form.get('email')?.errors?.['email']){
+              <div style="color: brown;">Enter a valid Email</div>
+            }
+          }
+        </div>
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" id="username" formControlName="username" placeholder="Enter your username">
+          @if(form.get('username')?.touched && form.get('username')?.invalid){
+            <div style="color: brown;">Please enter username</div>
+          }
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="text" id="password" formControlName="password" placeholder="Enter your password">
+          @if(form.get('password')?.touched && form.get('password')?.invalid){
+            @if(form.get('password')?.errors?.['required']){
+              <div style="color: brown;">Password is required</div>
+            }
+            @if(form.get('password')?.errors?.['minlength']){
+              <div style="color: brown;">Enter valid Password</div>
+            }
+          }
+        </div>
+        <div class="form-group">
+          <label>Confirm Password</label>
+          <input type="text" placeholder="Confirm your password" formControlName="confirmpassword">
+          @if(form.get('confirmpassword')?.touched && form.get('confirmpassword')?.invalid){
+            @if(form.get('confirmpassword')?.errors?.['required']){
+              <div style="color: brown;">Confirm Password is required</div>
+            }
+            @if(form.get('confirmpassword')?.errors?.['passwordMismatch']){
+              <div style="color: brown;">Enter same Password</div>
+            }
+          }
+        </div>
+  
+        <div class="form-group">
+          <button [disabled]="!form.valid" [ngClass]="{'btn-css':form.invalid}" (click)="onSubmit()">Submit</button>
+        </div>
+  
+  
+      </form>
+    </div>
+  </div>
+  
+  
+  
+    
+  
