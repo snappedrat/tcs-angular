@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, Validators, FormControl, FormGroup} from '@angular/forms'
 import { SharedModule } from '../Shared/shared.module';
 import { RouterModule } from '@angular/router';
-import { ApiService } from '../api.service';
+import { ApiService } from '../services/api-services/api.service';
 import { provideToastr, ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -22,7 +23,7 @@ export class registrationComponent implements OnInit {
     confirmpassword: new FormControl('', [Validators.required, this.passwordMatchValidator.bind(this)])
   });
 
-  constructor(private formbuilder: FormBuilder, private api:ApiService, private toastr: ToastrService){
+  constructor(private formbuilder: FormBuilder, private api:ApiService, private toastr: ToastrService, private router: Router){
 
   }
   routeData: any;
@@ -39,15 +40,14 @@ export class registrationComponent implements OnInit {
   onSubmit(){
     console.log(this.form.value)
     window.alert("Form submitted")
+    this.api.addUser(this.form.value)
+    this.router.navigate(['/login'])
   }
 
   passwordMatchValidator(control: FormControl): {[key:string]: boolean} | null{
     if(this.form){
       let password = this.form.get('password')?.value;
       if(password !== control.value){
-          // console.log(password !== control.value);
-          // console.log(this.form.get('confirmpassword')?.errors?.['passwordMismatch']);
-          
           return {passwordMismatch: true}
       }
     }

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { LoginComponent } from "../login/login.component";
 import { registrationComponent } from "../registration/registration.component";
 import { SharedModule } from '../Shared/shared.module';
-import { ApiService } from '../api.service';
+import { ApiService } from '../services/api-services/api.service';
 import { Route, Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
