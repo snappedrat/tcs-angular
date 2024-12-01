@@ -21,7 +21,7 @@ export class LoginComponent {
   }
 
   ngOnInit(): void {
-    console.log(this.flag);
+    // console.log(this.flag);
     let userData = this.api.getData()
     if(userData.username!='' && userData.password!=''){
       this.username = userData.username
@@ -39,7 +39,10 @@ export class LoginComponent {
   //   }
   // }
   onSubmitng(){
-      let auth = this.api.login({username: this.username, password: this.password})
+      this.api.login({username: this.username, password: this.password})
+      let auth = this.api.isLoggedIn()
+      console.log(auth);
+      
       if(!auth){
         this.api.setData({username: this.username, password: this.password})
       }

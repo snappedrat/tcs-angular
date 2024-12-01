@@ -1,1 +1,47 @@
-<p>add-user works!</p>
+<div class="container">
+    <h2>User Details</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>DOB</th>
+          <th>Aadhar</th>
+          <th>Mobile No</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of appState.tableData()">
+          <td>{{ row.id }}</td>
+          <td>{{ row.name }}</td>
+          <td>{{ row.dob }}</td>
+          <td>{{ row.aadhar }}</td>
+          <td>{{ row.mobile }}</td>
+          <td>
+            <button (click)="deleteRow(row.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <button (click)="openModal()">Add New User</button>
+  
+    <div class="modal" [class.show]="isModalOpen">
+      <div class="modal-content">
+        <h3>Add New User</h3>
+        <form>
+          <input type="number" placeholder="ID" [(ngModel)]="newRow.id" name="id" />
+          <input type="text" placeholder="Name" [(ngModel)]="newRow.name" name="name" />
+          <input type="date" placeholder="DOB" [(ngModel)]="newRow.dob" name="dob" />
+          <input type="text" placeholder="Aadhar" [(ngModel)]="newRow.aadhar" name="aadhar" />
+          <input type="text" placeholder="Mobile No" [(ngModel)]="newRow.mobile" name="mobile" />
+          <div class="buttons">
+            <button type="button" (click)="addRow()">Add</button>
+            <button type="button" (click)="closeModal()">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  

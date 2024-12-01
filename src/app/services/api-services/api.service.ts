@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 })
 export class ApiService {
   userData: {username: string, password: string} = {username: '', password: ''}
-
+  isLoggedIn = signal(false)
   mockUsers:any = [
     { username: 'john_doe', password: 'password123', role: 'user' },
     { username: 'jane_doe', password: 'securePassword!', role: 'moderator' },
@@ -21,7 +21,8 @@ export class ApiService {
 
    login(data:{username: string, password: string}){
       let user = this.mockUsers.find((u:any)=> u.username === data.username && u.password === data.password)
-      return !!user
+      console.log(user);
+      this.isLoggedIn.set(!!user)
    }
 
   setData(data:{username: string, password: string}){
