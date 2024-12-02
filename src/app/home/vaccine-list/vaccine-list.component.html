@@ -1,1 +1,54 @@
-<p>vaccine-list works!</p>
+<div class="container mt-4">
+    <h2 class="text-center">Vaccination Schedule</h2>
+    <table class="table table-striped table-bordered mt-4">
+      <thead class="table-dark">
+        <tr>
+          <th>Vaccine Name</th>
+          <th>Dosage</th>
+          <th>Days from Birth</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let vaccine of (vaccineSchedule$ | async)">
+          <td>{{ vaccine.name }}</td>
+          <td>{{ vaccine.dosage }}</td>
+          <td>{{ vaccine.daysFromBirth }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+<div class="modal fade" id="addVaccineModal" tabindex="-1" aria-labelledby="addVaccineModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addVaccineModalLabel">Add Vaccine Information</h5>
+          <button #modalElem type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form (ngSubmit)="addVaccine()">
+            <div class="mb-3">
+              <label for="vaccineName" class="form-label">Vaccine Name</label>
+              <input type="text" class="form-control" id="vaccineName" [(ngModel)]="newVaccine.name" name="vaccineName" required />
+            </div>
+            <div class="mb-3">
+              <label for="vaccineDosage" class="form-label">Dosage</label>
+              <input type="text" class="form-control" id="vaccineDosage" [(ngModel)]="newVaccine.dosage" name="vaccineDosage" required />
+            </div>
+            <div class="mb-3">
+              <label for="vaccineDays" class="form-label">Days from Birth</label>
+              <input type="number" class="form-control" id="vaccineDays" [(ngModel)]="newVaccine.daysFromBirth" name="vaccineDays" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Add Vaccine</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container mt-4">
+    <button type="button" class="btn btn-success my-3" data-bs-toggle="modal" data-bs-target="#addVaccineModal">
+      Add Vaccine
+    </button>
+  </div>
+
+  
