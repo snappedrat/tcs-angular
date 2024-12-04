@@ -35,6 +35,14 @@
     font-size: 14px;
     color: #333;
   }
+  input[type="password"] {
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+  }
   button {
     width: 100%;
     padding: 12px;

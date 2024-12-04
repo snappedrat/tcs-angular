@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { ApiService } from '../services/api-services/api.service';
 import { provideToastr, ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { StateService } from '../services/state-services/state.service';
 
 @Component({
   selector: 'app-registration',
@@ -23,7 +24,13 @@ export class registrationComponent implements OnInit {
     confirmpassword: new FormControl('', [Validators.required, this.passwordMatchValidator.bind(this)])
   });
 
-  constructor(private formbuilder: FormBuilder, private api:ApiService, private toastr: ToastrService, private router: Router){
+
+
+  constructor(private formbuilder: FormBuilder, 
+              private api:ApiService, 
+              private toastr: ToastrService, 
+              private router: Router,
+              private state: StateService){
 
   }
   routeData: any;
@@ -35,12 +42,20 @@ export class registrationComponent implements OnInit {
         this.form.controls.password.setValue(this.routeData.password)
         this.toastr.show("Please register as new user","Message", {positionClass: "toast-top-right"})
       }
-
+      /////////////////////////////////////////////////////////
+      let newrow = { id: 3, name: 'Kun', dob: '1992-05-15', aadhar: '2805 6789 0123', mobile: '9476737564' }
+      this.state.tableData.update((rows)=>[...rows, newrow])
+      console.log(this.state.tableData())
+      this.state.tables.next([...this.state.tables.value, newrow])
+      console.log(this.state.tables.value); 
+      
   }
   onSubmit(){
     console.log(this.form.value)
     window.alert("Form submitted")
     this.api.addUser(this.form.value)
+    let x = this.form?.get('username')?.value as string
+    localStorage.setItem("username", x)
     this.router.navigate(['/login'])
   }
 
