@@ -22,7 +22,6 @@ export class LoginComponent {
   }
 
   ngOnInit(): void {
-    // console.log(this.flag);
     this.state.tables$.subscribe((data)=>console.log(data))
     let newrow = { id: 4, name: 'Kakeru', dob: '1992-05-15', aadhar: '2805 6789 0123', mobile: '9476737564' }
     this.state.tableData.update((rows)=>[...rows, newrow])
